@@ -1,0 +1,68 @@
+﻿@model CurlingSimulator.Models.ViewModels.SimulatorViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <div class="container">
+
+        <h1 class="justify-content-center m-3">Curling Simulator</h1>
+        
+        <h2 class="justify-content-center h5">Basic collision simulator for circular objects on a 2D plane.</h2>
+        <p class="text-left">Specify the number of disks to launch, the radius of the disks, and the X coordinate of each of their starting locations to begin. On launch, the disks will slide down the Y-axis until they collide with the X-axis or another disk. On collision, the disk will stop and the next one will be launched. Click <a href="http://codeforces.com/contest/908/problem/C" target="_blank">here</a> for a more detailed description of the problem.</p>
+        <p class="text-left">Enter the values below and click "Run" to see the results.</p>
+
+        <div class="row">
+            <div class="col-xs-12 col-xl-4">
+                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "input-form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="row">
+                        <div class="col-6 m-0">
+                            <div class="form-group text-left">
+                                @Html.LabelFor(m => m.Input.NumDisks)
+                                @Html.EditorFor(m => m.Input.NumDisks, new { htmlAttributes = new { @class="form-control", type="number"}})  
+                                <div class="text-danger">
+                                    @Html.ValidationMessageFor(m => m.Input.NumDisks)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6 m-0">
+                            <div class="form-group text-left">
+                                @Html.LabelFor(m => m.Input.DiskRadius)
+                                @Html.EditorFor(m => m.Input.DiskRadius, new { htmlAttributes = new { @class="form-control", type="number"}})    
+                                <div class="text-danger">
+                                    @Html.ValidationMessageFor(m => m.Input.DiskRadius)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group text-left">
+                        @Html.LabelFor(m => m.Input.XCoordinates)
+                        @Html.TextBoxFor(m => m.Input.XCoordinates, new { @class="form-control", placeholder="e.g.: 5,5,6,8,3,12"})
+                        <div class="text-danger">
+                            @Html.ValidationMessageFor(m => m.Input.XCoordinates)
+                        </div>
+                    </div>
+                    
+                    <div class="text-danger">
+                        @Html.ValidationSummary(true)
+                    </div>
+                }
+        
+                <div class="form-group text-left">
+                    @Html.LabelFor(m => m.Result.YCoordinates)
+                    @Html.EditorFor(m => m.Result.YCoordinates, new { htmlAttributes = new { @class = "form-control disabled", @readonly = "readonly" }})
+                </div>
+
+                <button type="submit" form="input-form" class="btn btn-primary align-self-bottom mb-3">Run</button>
+            </div>
+            <div class="col-xs-12 col-xl-8">
+                @Html.PartialAsync("_Chart", Model.Result.Disks).Result
+            </div>
+        </div>
+    </div>
+</div>

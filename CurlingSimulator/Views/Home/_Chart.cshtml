@@ -1,0 +1,12 @@
+﻿@using Newtonsoft.Json
+@model Disk[]
+<div id="image-container">
+    @if (@Model != null)
+    {
+        <img class="img-fluid" src="@Url.Action("GetCurlingChart","Graphics", new { disks = JsonConvert.SerializeObject(@Model) })" />
+    }
+    else
+    {
+        <img class="img-fluid m-3" src=".\img\curling-sports-clipart-xl.png" />
+    }
+</div>
