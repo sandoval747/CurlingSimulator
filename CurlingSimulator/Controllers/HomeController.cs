@@ -13,10 +13,10 @@ namespace CurlingSimulator.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ISimulator _simulator;
 
-        public HomeController(ILogger<HomeController> logger, ISimulator curlingSimulator)
+        public HomeController(ILogger<HomeController> logger, ISimulator simulator)
         {
             _logger = logger;
-            _simulator = curlingSimulator;
+            _simulator = simulator;
         }
 
         public IActionResult Index()
