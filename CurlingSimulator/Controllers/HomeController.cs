@@ -11,12 +11,12 @@ namespace CurlingSimulator.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ISimulator _curlingSimulator;
+        private readonly ISimulator _simulator;
 
         public HomeController(ILogger<HomeController> logger, ISimulator curlingSimulator)
         {
             _logger = logger;
-            _curlingSimulator = curlingSimulator;
+            _simulator = curlingSimulator;
         }
 
         public IActionResult Index()
@@ -40,7 +40,7 @@ namespace CurlingSimulator.Controllers
             {
                 var startPositions = Array.ConvertAll(input.XCoordinates.Split(","), Convert.ToInt32);
 
-                var result = _curlingSimulator.Simulate(input.DiskRadius, startPositions);
+                var result = _simulator.Simulate(input.DiskRadius, startPositions);
 
                 model.Result.Disks = result;
             }
